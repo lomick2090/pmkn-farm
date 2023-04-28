@@ -47,8 +47,10 @@ export default function App() {
         })
     }
 
-    async function handleStake() {
-
+    async function handleStake(amount) {
+        const signedFarm = pmknFarmContract.connect(walletInfo.signer)
+        const tx = await signedFarm.stake(amount)
+        const yo = await tx.wait()
     }
 
     provider.provider.on('chainChanged', () => {
@@ -56,15 +58,24 @@ export default function App() {
     })
 
     provider.provider.on("accountsChanged", () => {
-        initialize()
+        connectWallet();
     })
 
     return (
         <div>
-            <WalletConnect getAccount={connectWallet} walletInfo={walletInfo} />
+            <WalletConnect 
+                getAccount={connectWallet} 
+                walletInfo={walletInfo} 
+            />
             {wtbnbContract && walletInfo.address
                 &&
-                <StakeUnit token={wtbnbContract} provider={provider} handleStake={handleStake} walletInfo={walletInfo}/>
+                <StakeUnit 
+                    token={wtbnbContract} 
+                    provider={provider} 
+                    handleStake={handleStake} 
+                    walletInfo={walletInfo}
+                    farmContract={pmknFarmContract}
+                />
             }
         </div>
     )  
