@@ -1,11 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('./images/pumpkinBG.png')
+}
+
+.header {
+  background-color: darkslateblue;
+  color: white;
+  margin:0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header > h1 {
+  font-family: 'Pangolin', 'Inter', sans-serif;
+  margin-right:auto;
+  margin-left:auto;
+}
+
 .stakeunit {
+  font-family: 'Inter', sans-serif;
   border: 1px solid black;
   border-radius: 5px;
-  max-width: 300px;
+  width: 300px;
   display:flex;
   flex-direction: column;
   align-items: center;
   padding: 25px 0px;
+  background-color: rgba(0, 0, 0, 0.767);
+  color:white;
+  margin-right: auto;
+  margin-left:auto;
+  margin-top: 10px;
+}
+
+.stakeunit > h1 {
+  font-family: 'Pangolin', 'Inter', sans-serif;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -20,4 +54,36 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
   appearance: textfield;
+}
+
+.stakebuttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  font-family: 'Inter', sans-serif;
+  background-color:blue;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  padding: 6px;
+  margin:1px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.walletconnect > button {
+  background-color: black;
+  color:white;
+}
+
+.farmunits {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
 }

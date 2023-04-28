@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
-import WalletConnect from './components/WalletConnect'
+import Header from './components/Header'
 import pmknTokenABI from './ABIs/pmknTokenABI.json'
 import pmknFarmABI from './ABIs/pmknFarmABI.json'
 import StakeUnit from './components/StakeUnit'
@@ -20,6 +20,7 @@ export default function App() {
         const pmknAddy = '0x5Ebaa6d5DbB574d1A211Fa8e8ea55feF6D308bCb'
         const pmknFarmAddy = '0xd2F05d6eE6dB5Ed62bc7629D957f37042221db4C'
         const wtbnbAddy = '0xC9eB79875f9A0cA52aA14068FA2307D54De76fC0'
+
         setPmknAddress(pmknAddy)
         setPmknFarmAddress(pmknFarmAddy)
         setPmknContract(new ethers.Contract(pmknAddy, pmknTokenABI, provider))
@@ -79,21 +80,41 @@ export default function App() {
 
     return (
         <div>
-            <WalletConnect 
+            <Header 
                 getAccount={connectWallet} 
                 walletInfo={walletInfo} 
             />
             {wtbnbContract && walletInfo.address
                 &&
-                <StakeUnit 
-                    token={wtbnbContract} 
-                    provider={provider} 
-                    handleStake={handleStake} 
-                    walletInfo={walletInfo}
-                    farmContract={pmknFarmContract}
-                    handleWithdraw={handleWithdraw}
-                    handleUnstake={handleUnstake}
-                />
+                <div className='farmunits'>
+                    <StakeUnit
+                        token={wtbnbContract}
+                        provider={provider}
+                        handleStake={handleStake}
+                        walletInfo={walletInfo}
+                        farmContract={pmknFarmContract}
+                        handleWithdraw={handleWithdraw}
+                        handleUnstake={handleUnstake}
+                    />
+                    <StakeUnit
+                        token={pmknContract}
+                        provider={provider}
+                        handleStake={handleStake}
+                        walletInfo={walletInfo}
+                        farmContract={pmknFarmContract}
+                        handleWithdraw={handleWithdraw}
+                        handleUnstake={handleUnstake}
+                    />
+                    <StakeUnit
+                        token={wtbnbContract}
+                        provider={provider}
+                        handleStake={handleStake}
+                        walletInfo={walletInfo}
+                        farmContract={pmknFarmContract}
+                        handleWithdraw={handleWithdraw}
+                        handleUnstake={handleUnstake}
+                    />
+                </div>
             }
         </div>
     )  
