@@ -3,22 +3,34 @@ import { ethers } from 'ethers'
 import WalletConnect from './components/WalletConnect'
 import pmknTokenABI from './ABIs/pmknTokenABI.json'
 import pmknFarmABI from './ABIs/pmknFarmABI.json'
+import StakeUnit from './components/StakeUnit'
+import wtbnb from './ABIs/wtbnb.json'
 
 export default function App() {
     const [provider, setProvider] = useState(new ethers.providers.Web3Provider(window.ethereum));
     const [walletInfo, setWalletInfo] = useState({});
     const [pmknAddress, setPmknAddress] = useState();
     const [pmknFarmAddress, setPmknFarmAddress] = useState();
-    const [pmknContract, setPmknContract] = useState()
-    const [pmknFarmContract, setPmknFarmContract] = useState()
+    const [pmknContract, setPmknContract] = useState();
+    const [pmknFarmContract, setPmknFarmContract] = useState();
+    const [wtbnbContract, setWtbnbContract] = useState();
  
 
     async function initialize() {
-        setPmknAddress('0x5Ebaa6d5DbB574d1A211Fa8e8ea55feF6D308bCb')
-        setPmknFarmAddress('0xd2F05d6eE6dB5Ed62bc7629D957f37042221db4C')
-        setPmknContract(new ethers.Contract(pmknAddress, pmknTokenABI, provider))
-        setPmknFarmContract(new ethers.Contract(pmknFarmAddress, pmknFarmABI, provider))
+        const pmknAddy = '0x5Ebaa6d5DbB574d1A211Fa8e8ea55feF6D308bCb'
+        const pmknFarmAddy = '0xd2F05d6eE6dB5Ed62bc7629D957f37042221db4C'
+        const wtbnbAddy = '0xC9eB79875f9A0cA52aA14068FA2307D54De76fC0'
+        setPmknAddress(pmknAddy)
+        setPmknFarmAddress(pmknFarmAddy)
+        setPmknContract(new ethers.Contract(pmknAddy, pmknTokenABI, provider))
+        setPmknFarmContract(new ethers.Contract(pmknFarmAddy, pmknFarmABI, provider))
+        setWtbnbContract(new ethers.Contract(wtbnbAddy, wtbnb, provider))
     }
+
+    useEffect(() => {
+        initialize()
+        
+    }, [])
 
     async function connectWallet() {
         setProvider(new ethers.providers.Web3Provider(window.ethereum))
@@ -35,18 +47,25 @@ export default function App() {
         })
     }
 
+    async function handleStake() {
+
+    }
+
     provider.provider.on('chainChanged', () => {
         window.location.reload()
     })
 
     provider.provider.on("accountsChanged", () => {
-        getAccount()
+        initialize()
     })
-
 
     return (
         <div>
             <WalletConnect getAccount={connectWallet} walletInfo={walletInfo} />
+            {wtbnbContract && walletInfo.address
+                &&
+                <StakeUnit token={wtbnbContract} provider={provider} handleStake={handleStake} walletInfo={walletInfo}/>
+            }
         </div>
     )  
 }

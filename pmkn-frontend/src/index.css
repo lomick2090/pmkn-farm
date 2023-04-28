@@ -1,0 +1,20 @@
+.stakeunit {
+    border: 1px solid black;
+    border-radius: 5px;
+    max-width: 300px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
