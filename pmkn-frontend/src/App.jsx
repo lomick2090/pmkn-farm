@@ -50,12 +50,15 @@ export default function App() {
     async function handleStake(amount) {
         const signedFarm = pmknFarmContract.connect(walletInfo.signer)
         const tx = await signedFarm.stake(amount, { gasLimit: 200000})
-        console.log(tx)
         const yo = await tx.wait()
         connectWallet()
     }
 
     async function handleUnstake(amount) {
+        const signedFarm = pmknFarmContract.connect(walletInfo.signer)
+        const tx = await signedFarm.unstake(amount, { gasLimit: 200000})
+        const yo = await tx.wait()
+        connectWallet()
 
     }
 

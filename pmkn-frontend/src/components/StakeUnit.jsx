@@ -9,7 +9,6 @@ export default function StakeUnit(props) {
         contractBalance: '',
         allowance: ''
     }) 
-    console.log(props.farmContract)
 
     const connectedFarmContract = props.farmContract.connect(props.provider)
     const connectedTokenContract = props.token.connect(props.provider)
@@ -21,10 +20,6 @@ export default function StakeUnit(props) {
     function handleChange(e) {
         const {value} = e.target
         setInput(value)
-    }
-
-    async function setMax() {
-        setInput(userBalance.walletBalance)
     }
 
     async function setup() {
@@ -54,23 +49,32 @@ export default function StakeUnit(props) {
     return (
         <div className="stakeunit">
             <h1>{tokenName}</h1>
-            <p>Wallet Balance: {parseFloat(userBalance.walletBalance).toFixed(6)}</p>
-            <p>Amount Staked: {parseFloat(userBalance.contractBalance).toFixed(6)}</p>
-            <div>
-                <input type="number" value={input} onChange={handleChange} /> 
-                <button onClick={setMax}>Max</button>
-            </div>
+            <div>Wallet Balance: {parseFloat(userBalance.walletBalance).toFixed(6)}</div>
+            <div>Amount Staked: {parseFloat(userBalance.contractBalance).toFixed(6)}</div>
             <br />
             <div>
-                {(userBalance.allowance < input) ?
-                    <button onClick={handleAllow}>Approve Token</button>
+                <input type="number" value={input} onChange={handleChange} /> 
+            </div>
+            <div>
+                {(userBalance.allowance == 0.0) ?
+                    <div>
+                        <br />
+                        <button onClick={handleAllow}>Approve Token</button>
+                    </div>
                     :
-                    <button onClick={() => props.handleStake(ethers.utils.parseEther(input))}>Stake</button>
+                    <div>
+                        <button onClick={() => props.handleStake(ethers.utils.parseEther(input))}>Stake</button>
+                        <button onClick={() => props.handleUnstake(ethers.utils.parseEther(input))}>Unstake</button>
+                    
+                        <br />
+                        <button onClick={() => props.handleStake(ethers.utils.parseEther(userBalance.walletBalance))}>Stake Max</button>
+                        <button onClick={() => props.handleUnstake(ethers.utils.parseEther(userBalance.contractBalance))}>Unstake Max</button>
+                    </div>
                 }
                 {(userBalance.contractBalance > 0 )
                     &&
                     <div>
-                        <button>Unstake</button>
+
                         <button onClick={props.handleWithdraw}>Claim Yield</button>
                     </div>
                 }
