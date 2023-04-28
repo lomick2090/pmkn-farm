@@ -14,11 +14,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom:20px;
 }
 
 .header > h1 {
   font-family: 'Pangolin', 'Inter', sans-serif;
-  margin-right:auto;
+  margin-left:auto;
+}
+
+.walletconnect {
   margin-left:auto;
 }
 
@@ -26,7 +30,8 @@ body {
   font-family: 'Inter', sans-serif;
   border: 1px solid black;
   border-radius: 5px;
-  width: 300px;
+  width: 25vw;
+  font-size: 1vw;
   display:flex;
   flex-direction: column;
   align-items: center;
@@ -40,6 +45,7 @@ body {
 
 .stakeunit > h1 {
   font-family: 'Pangolin', 'Inter', sans-serif;
+  font-size:3vw;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -54,6 +60,7 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
   appearance: textfield;
+  width: 15vw;
 }
 
 .stakebuttons {
@@ -80,6 +87,7 @@ button:hover {
 .walletconnect > button {
   background-color: black;
   color:white;
+  margin-right:12px;
 }
 
 .farmunits {
