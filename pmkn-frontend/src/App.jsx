@@ -49,8 +49,21 @@ export default function App() {
 
     async function handleStake(amount) {
         const signedFarm = pmknFarmContract.connect(walletInfo.signer)
-        const tx = await signedFarm.stake(amount)
+        const tx = await signedFarm.stake(amount, { gasLimit: 200000})
+        console.log(tx)
         const yo = await tx.wait()
+        connectWallet()
+    }
+
+    async function handleUnstake(amount) {
+
+    }
+
+    async function handleWithdraw() {
+        const signedFarm = pmknFarmContract.connect(walletInfo.signer);
+        const tx = await signedFarm.withdrawYield()
+        const yo = await tx.wait()
+        connectWallet()
     }
 
     provider.provider.on('chainChanged', () => {
@@ -75,6 +88,8 @@ export default function App() {
                     handleStake={handleStake} 
                     walletInfo={walletInfo}
                     farmContract={pmknFarmContract}
+                    handleWithdraw={handleWithdraw}
+                    handleUnstake={handleUnstake}
                 />
             }
         </div>
